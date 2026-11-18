@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Fixi: contá qué se rompió y los técnicos de tu zona te ofertan precio, plazo y reputación.">
+<title>Fixi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rye&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap">
+<style>
+/* Layout: taller victoriano. Placas de latón remachadas sobre caoba, engranajes girando detrás, manómetros para los datos y telegramas para las ofertas. Un solo look a propósito. */
+:root{
+  --coal:#170f0c;
+  --mahogany:#2a1913;
+  --brass:#c9973a;
+  --brass-hi:#f1d27f;
+  --brass-lo:#6e4a17;
+  --copper:#b4572e;
+  --verdigris:#5aa08e;
+  --parchment:#ecdcb6;
+  --parchment-lo:#d9c394;
+  --ink:#2a1b10;
+  --f-display:"Rye","Georgia",serif;
+  --f-body:"Libre Baskerville","Georgia",serif;
+  --f-label:"Special Elite","Courier New",monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--parchment);font:400 17px/1.7 var(--f-body);overflow-x:hidden;
+  background-color:var(--coal);
+  background-image:radial-gradient(ellipse at 50% 0,rgba(201,151,58,.16),transparent 60%),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 2px,transparent 2px 120px)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));position:relative}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;line-height:1.08;text-wrap:balance;letter-spacing:.01em}
+p{margin:0}a{color:inherit}
+:focus-visible{outline:3px solid var(--brass-hi);outline-offset:3px}
+.label{font-family:var(--f-label);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass)}
+.metal{background:linear-gradient(180deg,var(--brass-hi),var(--brass) 45%,var(--brass-lo));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* gears */
+.gear{position:absolute;pointer-events:none;animation:spin 60s linear infinite}
+.gear.rev{animation-direction:reverse}
+.gear path{fill:var(--brass);fill-opacity:.16;stroke:var(--brass);stroke-opacity:.55;stroke-width:1.5}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* nav */
+nav{display:flex;align-items:center;justify-content:space-between;padding-block:22px;border-bottom:1px solid rgba(201,151,58,.35)}
+.logo{font-family:var(--f-display);font-size:2rem;text-decoration:none;display:flex;align-items:center;gap:10px}
+.links{display:flex;gap:26px;align-items:center;font-family:var(--f-label);font-size:.95rem;letter-spacing:.06em}
+.links a{text-decoration:none;color:var(--parchment)}
+.links a:hover{color:var(--brass-hi)}
+
+/* buttons: latón */
+.btn{display:inline-block;text-decoration:none;font-family:var(--f-label);letter-spacing:.1em;text-transform:uppercase;font-size:.95rem;padding:15px 26px;border-radius:4px;color:var(--ink);
+  background:linear-gradient(180deg,var(--brass-hi),var(--brass) 50%,#a97a26);border:1px solid var(--brass-lo);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 4px 0 var(--brass-lo),0 10px 18px rgba(0,0,0,.45);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 2px 0 var(--brass-lo),0 6px 12px rgba(0,0,0,.45)}
+.btn.line{background:transparent;color:var(--brass-hi);border:1px solid var(--brass);box-shadow:none}
+.btn.line:hover{background:rgba(201,151,58,.15);transform:none}
+nav .btn{padding:9px 16px;font-size:.8rem}
+
+/* phones: marco de latón remachado */
+.phone{position:relative;padding:9px;border-radius:30px;background:linear-gradient(135deg,var(--brass-hi),var(--brass) 30%,var(--brass-lo) 55%,var(--brass) 80%,var(--brass-hi));
+  box-shadow:0 26px 50px -14px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.35)}
+.phone img{display:block;width:100%;height:auto;border-radius:22px;background:#000;border:2px solid #1a0f08}
+.phone::before,.phone::after{content:"";position:absolute;top:3px;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c4,#8a5f1d 70%);box-shadow:0 1px 1px rgba(0,0,0,.6)}
+.phone::before{left:50%;transform:translateX(-14px)}.phone::after{left:50%;transform:translateX(8px)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding-block:56px 90px;position:relative}
+.hero h1{font-size:clamp(2.8rem,6.6vw,5.6rem);margin:20px 0 24px}
+.hero p.lead{font-size:1.15rem;max-width:30em;color:#e4d3ab}
+.cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:34px}
+.stage{position:relative;width:100%;aspect-ratio:1/1.12;max-width:560px;justify-self:center}
+.stage .phone{position:absolute;width:47%;z-index:2}
+.stage .p1{left:0;top:12%;transform:rotate(-6deg)}
+.stage .p2{left:27%;top:0;z-index:3;transform:rotate(1deg)}
+.stage .p3{right:0;top:16%;transform:rotate(7deg)}
+.telegram{position:absolute;z-index:4;background:var(--parchment);color:var(--ink);padding:10px 14px 10px;font-family:var(--f-label);font-size:.82rem;line-height:1.3;letter-spacing:.04em;box-shadow:0 14px 26px rgba(0,0,0,.6);
+  border:1px solid var(--parchment-lo);outline:1px dashed #7a5a2e;outline-offset:-5px;text-transform:uppercase}
+.telegram b{display:block;font-size:1.25rem;letter-spacing:.02em;color:#7c2c10}
+.telegram.t1{left:-3%;bottom:5%;transform:rotate(-3deg)}
+.telegram.t2{right:-1%;bottom:0;transform:rotate(2deg)}
+
+/* gauges */
+.gauges{background:linear-gradient(180deg,#3a2517,#24150e);border-block:2px solid var(--brass-lo);box-shadow:inset 0 3px 0 rgba(241,210,127,.25),inset 0 -3px 0 rgba(0,0,0,.5)}
+.gauges .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding-block:44px}
+.gauge{display:flex;align-items:center;gap:20px}
+.gauge svg{flex:0 0 132px;width:132px;height:132px}
+.gauge .txt{min-width:0}
+.gauge h3{font-size:1.15rem;margin-bottom:4px;color:var(--brass-hi)}
+.gauge p{font-size:.9rem;line-height:1.5;color:#cdbb92}
+
+/* parchment */
+section{padding-block:96px;position:relative;overflow:hidden}
+.paper{background:var(--parchment);color:var(--ink);background-image:radial-gradient(ellipse at 20% 0,rgba(255,255,255,.4),transparent 55%),radial-gradient(ellipse at 100% 100%,rgba(122,80,30,.28),transparent 55%)}
+.paper .label{color:#8a3b1a}
+h2.big{font-size:clamp(2.1rem,4.6vw,3.7rem);margin:14px 0 18px}
+.paper .gear path{fill:#8a5f1d;fill-opacity:.09;stroke:#8a5f1d;stroke-opacity:.3}
+.sub{max-width:34em;font-size:1.05rem;opacity:.85}
+
+/* steps */
+.steps{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:36px 6px 34px;margin-top:10px;-webkit-overflow-scrolling:touch}
+.step{flex:0 0 min(228px,68vw);scroll-snap-align:start}
+.step:nth-child(even){transform:translateY(26px)}
+.step .n{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;font-family:var(--f-display);font-size:1.25rem;color:var(--ink);
+  background:radial-gradient(circle at 35% 30%,var(--brass-hi),var(--brass) 55%,var(--brass-lo));border:2px solid var(--brass-lo);box-shadow:0 3px 6px rgba(0,0,0,.4),inset 0 0 0 3px rgba(255,255,255,.18)}
+.step h3{font-size:1.2rem;margin:12px 0 6px;line-height:1.15}
+.step p{font-size:.9rem;line-height:1.5;margin-bottom:16px;opacity:.85}
+
+/* features */
+.feat{display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center}
+.feat.rev{grid-template-columns:1.15fr 1fr}.feat.rev .copy{order:2}
+.ul{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:14px}
+.ul li{display:flex;gap:14px;font-size:1rem;line-height:1.55}
+.ul li::before{content:"";flex:0 0 12px;height:12px;margin-top:7px;background:radial-gradient(circle at 35% 30%,var(--brass-hi),var(--brass-lo));border-radius:50%;box-shadow:0 0 0 2px rgba(0,0,0,.35)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.trio .phone:nth-child(2){transform:translateY(-34px)}
+.trio .phone:nth-child(3){transform:translateY(14px)}
+.paper .phone{box-shadow:0 22px 36px -14px rgba(60,30,10,.7),inset 0 0 0 1px rgba(255,255,255,.35)}
+
+/* categorias */
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.chips span{font-family:var(--f-label);font-size:.95rem;letter-spacing:.05em;padding:9px 18px 9px 34px;position:relative;color:var(--ink);
+  background:linear-gradient(180deg,#f3e3b0,#d6b866);border:1px solid var(--brass-lo);border-radius:3px;box-shadow:0 3px 0 rgba(110,74,23,.7)}
+.chips span::before{content:"";position:absolute;left:12px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--ink);box-shadow:inset 0 2px 2px #000,0 1px 0 rgba(255,255,255,.7)}
+
+/* tecnicos */
+.copper{background:linear-gradient(180deg,#3b1d12,#22110b);border-block:2px solid var(--brass-lo)}
+.big-nums{display:flex;flex-wrap:wrap;gap:36px 70px;margin-top:38px}
+.big-nums div{font-family:var(--f-display);font-size:3.2rem;line-height:1}
+.big-nums span{display:block;font-family:var(--f-label);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:#cdbb92;margin-top:8px}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px;align-items:start}
+.quad > div:nth-child(even){margin-top:40px}
+.cap{font-family:var(--f-label);font-size:.88rem;letter-spacing:.04em;margin-top:14px;color:#d8c79e}
+
+/* final */
+.final{padding-block:110px 50px}
+.final h2{font-size:clamp(2.8rem,8vw,7rem);line-height:1.02;max-width:9em}
+.final .lead{font-size:1.15rem;margin-top:26px;max-width:30em;color:#e4d3ab}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:30px 6px;border-top:1px solid rgba(201,151,58,.4);margin-top:70px;font-family:var(--f-label);font-size:.88rem;letter-spacing:.06em;color:#cdbb92}
+
+@media(max-width:900px){
+  .hero,.feat,.feat.rev{grid-template-columns:1fr;gap:46px}
+  .feat.rev .copy{order:0}
+  .quad{grid-template-columns:repeat(2,1fr)}
+  .gauges .wrap{grid-template-columns:1fr;gap:26px}
+  .links a:not(.btn){display:none}
+  section{padding-block:68px}
+  .hero{padding-bottom:60px}
+}
+@media(prefers-reduced-motion:reduce){.gear{animation:none}html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="bz" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1d27f"/><stop offset=".5" stop-color="#a97a26"/><stop offset="1" stop-color="#6e4a17"/></linearGradient>
+    <radialGradient id="face" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#f6e8c0"/><stop offset="1" stop-color="#cdb27a"/></radialGradient>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <nav>
+    <a class="logo metal" href="#top">Fixi</a>
+    <div class="links"><a href="#como">Cómo funciona</a><a href="#tecnicos">Para técnicos</a><a class="btn" href="#cierre">Pedí un técnico</a></div>
+  </nav>
+</div>
+
+<header class="wrap hero" id="top">
+  <svg class="gear" data-teeth="14" data-size="360" style="left:-120px;top:-40px;width:360px;height:360px" aria-hidden="true"></svg>
+  <svg class="gear rev" data-teeth="22" data-size="520" style="right:-160px;bottom:-200px;width:520px;height:520px" aria-hidden="true"></svg>
+  <div style="position:relative">
+    <span class="label">Servicio técnico a domicilio</span>
+    <h1><span class="metal">Contá qué se rompió.</span> Ellos ofertan.</h1>
+    <p class="lead">Fixi conecta tu pedido con técnicos de tu zona. Recibís precio, plazo y reputación de cada uno, elegís al mejor y pagás dentro de la app.</p>
+    <div class="cta-row"><a class="btn" href="#como">Ver cómo funciona</a><a class="btn line" href="#tecnicos">Soy técnico</a></div>
+  </div>
+  <div class="stage" aria-label="Pantallas de la app">
+    <div class="phone p1"><img src="img/26.jpg" alt="Inicio de la app con categorías de servicio" width="717" height="1600"></div>
+    <div class="phone p3"><img src="img/10.jpg" alt="Seguimiento del técnico en camino" width="717" height="1600"></div>
+    <div class="phone p2"><img src="img/19.jpg" alt="Tres ofertas para elegir" width="717" height="1600"></div>
+    <div class="telegram t1">Oferta recibida<b>$ 33.000</b>Llega en 20 min</div>
+    <div class="telegram t2">Telegrama<b>3 ofertas</b>en pocos minutos</div>
+  </div>
+</header>
+
+<div class="gauges">
+  <div class="wrap">
+    <div class="gauge"><svg class="dial" data-val="5" data-max="10" data-num="5" data-unit="pasos" aria-hidden="true"></svg><div class="txt"><h3>Pedir toma 5 pasos</h3><p>No pagás nada por pedir.</p></div></div>
+    <div class="gauge"><svg class="dial" data-val="15" data-max="30" data-num="15" data-unit="km" aria-hidden="true"></svg><div class="txt"><h3>Pagás al confirmar</h3><p>La plata queda guardada hasta que el trabajo está bien.</p></div></div>
+    <div class="gauge"><svg class="dial" data-val="5" data-max="100" data-num="5%" data-unit="comisión" aria-hidden="true"></svg><div class="txt"><h3>5% al técnico</h3><p>Al cliente no se le suma ningún cargo.</p></div></div>
+  </div>
+</div>
+
+<section class="paper" id="como">
+  <svg class="gear" data-teeth="18" data-size="440" style="right:-140px;top:-120px;width:440px;height:440px" aria-hidden="true"></svg>
+  <div class="wrap">
+    <span class="label">Cómo funciona</span>
+    <h2 class="big">De "no anda" a arreglado, sin llamar a nadie.</h2>
+    <p class="sub">Cinco pasos desde el celular. Cada técnico ve tu pedido y te manda su precio.</p>
+    <div class="steps">
+      <div class="step"><div class="n">I</div><h3>Elegí qué arreglar</h3><p>Heladeras, aire, PC, WiFi, plomería y más.</p><div class="phone"><img src="img/25.jpg" alt="Paso 1: qué necesitás arreglar" loading="lazy" width="717" height="1600"></div></div>
+      <div class="step"><div class="n">II</div><h3>Contá qué pasa</h3><p>Una frase y fotos opcionales alcanzan.</p><div class="phone"><img src="img/24.jpg" alt="Paso 2: contanos qué pasa" loading="lazy" width="717" height="1600"></div></div>
+      <div class="step"><div class="n">III</div><h3>Dónde y cuándo</h3><p>Ahora mismo, hoy u otro día.</p><div class="phone"><img src="img/23.jpg" alt="Paso 3: dónde y cuándo" loading="lazy" width="717" height="1600"></div></div>
+      <div class="step"><div class="n">IV</div><h3>Tu tope de gasto</h3><p>Opcional. Los técnicos ajustan su precio.</p><div class="phone"><img src="img/22.jpg" alt="Paso 4: cuánto querés gastar" loading="lazy" width="717" height="1600"></div></div>
+      <div class="step"><div class="n">V</div><h3>Revisá y pedí</h3><p>Avisamos a los técnicos cercanos.</p><div class="phone"><img src="img/21.jpg" alt="Paso 5: revisá y pedí tu técnico" loading="lazy" width="717" height="1600"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="paper" style="padding-top:0">
+  <div class="wrap feat">
+    <div class="copy">
+      <span class="label">Elegís con información</span>
+      <h2 class="big">Precio, tiempo y reputación en la misma pantalla.</h2>
+      <p class="sub">No adivinás a quién abrirle la puerta. Cada oferta trae lo que necesitás para decidir.</p>
+      <ul class="ul">
+        <li>Ordená por mejor opción, más barato o más cerca.</li>
+        <li>Mirá cuánto tarda en llegar y cuánto dura el trabajo.</li>
+        <li>Leé opiniones reales, con respuesta del técnico.</li>
+        <li>Insignias de nivel: Plata, Oro, Platino y Diamante.</li>
+      </ul>
+    </div>
+    <div class="trio">
+      <div class="phone"><img src="img/18.jpg" alt="Ofertas de técnicos con puntaje" loading="lazy" width="717" height="1600"></div>
+      <div class="phone"><img src="img/16.jpg" alt="Perfil de un técnico verificado" loading="lazy" width="717" height="1600"></div>
+      <div class="phone"><img src="img/17.jpg" alt="Opiniones y calificaciones" loading="lazy" width="717" height="1600"></div>
+    </div>
+  </div>
+</section>
+
+<section class="paper" style="padding-top:0">
+  <div class="wrap feat rev">
+    <div class="copy">
+      <span class="label">Pago protegido</span>
+      <h2 class="big">El técnico cobra cuando vos confirmás.</h2>
+      <p class="sub">Pagás dentro de la app y la plata queda guardada. Si algo sale mal, lo reportás y lo revisamos.</p>
+      <ul class="ul">
+        <li>Tarjeta de crédito o débito, transferencia, efectivo o saldo en cuenta.</li>
+        <li>Seguí al técnico en el mapa hasta tu puerta.</li>
+        <li>Confirmás que quedó bien y recién ahí se libera el pago.</li>
+      </ul>
+    </div>
+    <div class="trio">
+      <div class="phone"><img src="img/15.jpg" alt="Confirmar y pagar" loading="lazy" width="717" height="1600"></div>
+      <div class="phone"><img src="img/13.jpg" alt="Medios de pago disponibles" loading="lazy" width="717" height="1600"></div>
+      <div class="phone"><img src="img/10.jpg" alt="Seguimiento del trabajo en curso" loading="lazy" width="717" height="1600"></div>
+    </div>
+  </div>
+</section>
+
+<section class="paper" style="padding-top:0">
+  <div class="wrap">
+    <span class="label">Qué podés pedir</span>
+    <h2 class="big">Si se rompió, hay alguien que lo arregla.</h2>
+    <div class="chips">
+      <span>PC y notebooks</span><span>Celulares y tablets</span><span>Redes y WiFi</span><span>Consolas</span><span>Impresoras</span><span>Heladeras</span><span>Lavarropas</span><span>Aire acondicionado</span><span>TV y audio</span><span>Cocinas y hornos</span><span>Electricista</span><span>Plomero</span><span>Gasista</span><span>Cerrajero</span><span>Pintor</span><span>Albañil</span>
+    </div>
+  </div>
+</section>
+
+<section class="copper" id="tecnicos">
+  <svg class="gear" data-teeth="16" data-size="400" style="left:-150px;bottom:-140px;width:400px;height:400px" aria-hidden="true"></svg>
+  <div class="wrap">
+    <span class="label">Para técnicos</span>
+    <h2 class="big metal">Pedidos cerca tuyo, a tu ritmo.</h2>
+    <p class="sub" style="color:#e4d3ab">Elegís qué servicios hacés y hasta qué distancia viajás. Los pedidos te llegan solos y vos ponés el precio.</p>
+    <div class="big-nums">
+      <div class="metal">5%<span>comisión por trabajo, sin cuotas</span></div>
+      <div class="metal">15 km<span>de radio, el que vos elijas</span></div>
+      <div class="metal">4 niveles<span>de Plata a Diamante</span></div>
+    </div>
+    <div class="quad">
+      <div><div class="phone"><img src="img/03.jpg" alt="Mapa de pedidos cercanos" loading="lazy" width="717" height="1600"></div><p class="cap">Pedidos en el mapa o en lista.</p></div>
+      <div><div class="phone"><img src="img/05.jpg" alt="Nivel y puntos del técnico" loading="lazy" width="717" height="1600"></div><p class="cap">Sumá puntos y subí de nivel.</p></div>
+      <div><div class="phone"><img src="img/07.jpg" alt="Ganancias del técnico" loading="lazy" width="717" height="1600"></div><p class="cap">Tus ganancias, claras.</p></div>
+      <div><div class="phone"><img src="img/01.jpg" alt="Perfil de técnico con servicios y distancia" loading="lazy" width="717" height="1600"></div><p class="cap">Servicios y distancia a medida.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cierre" class="final">
+  <svg class="gear" data-teeth="20" data-size="480" style="right:-150px;top:-100px;width:480px;height:480px" aria-hidden="true"></svg>
+  <div class="wrap">
+    <h2><span class="metal">Que lo arregle</span> alguien bueno.</h2>
+    <p class="lead">Fixi llega pronto a Android. Las pantallas de esta página son de la versión demo.</p>
+    <footer><span>Fixi · Servicio técnico a domicilio</span><span>Buenos Aires, Argentina</span></footer>
+  </div>
+</section>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+  // engranajes: contorno con dientes y agujero central
+  document.querySelectorAll("svg.gear").forEach(function(s){
+    var t=+s.dataset.teeth,S=+s.dataset.size,c=S/2,ro=c*.97,ri=c*.8,d="",step=2*Math.PI/t;
+    for(var i=0;i<t;i++){
+      var a=i*step,pts=[[ri,a],[ro,a+step*.18],[ro,a+step*.42],[ri,a+step*.6]];
+      pts.forEach(function(p,j){var x=c+p[0]*Math.cos(p[1]),y=c+p[0]*Math.sin(p[1]);d+=(i===0&&j===0?"M":"L")+x.toFixed(1)+" "+y.toFixed(1)+" "});
+    }
+    d+="Z";
+    var hr=c*.22,sr=c*.55;
+    d+=" M"+(c+hr)+" "+c+" A"+hr+" "+hr+" 0 1 0 "+(c-hr)+" "+c+" A"+hr+" "+hr+" 0 1 0 "+(c+hr)+" "+c+"Z";
+    d+=" M"+(c+sr)+" "+c+" A"+sr+" "+sr+" 0 1 0 "+(c-sr)+" "+c+" A"+sr+" "+sr+" 0 1 0 "+(c+sr)+" "+c+"Z";
+    s.setAttribute("viewBox","0 0 "+S+" "+S);
+    var p=el("path",{d:d,"fill-rule":"evenodd"},s);
+  });
+  // manómetros
+  document.querySelectorAll("svg.dial").forEach(function(s){
+    s.setAttribute("viewBox","0 0 200 200");
+    var val=+s.dataset.val,max=+s.dataset.max,A0=-135,A1=135;
+    el("circle",{cx:100,cy:100,r:96,fill:"url(#bz)"},s);
+    el("circle",{cx:100,cy:100,r:84,fill:"#2a1b10"},s);
+    el("circle",{cx:100,cy:100,r:80,fill:"url(#face)"},s);
+    for(var i=0;i<=20;i++){
+      var a=(A0+(A1-A0)*i/20-90)*Math.PI/180,big=i%5===0,r1=big?60:68,r2=76;
+      el("line",{x1:100+r1*Math.cos(a),y1:100+r1*Math.sin(a),x2:100+r2*Math.cos(a),y2:100+r2*Math.sin(a),stroke:"#2a1b10","stroke-width":big?3:1.4,"stroke-linecap":"round"},s);
+    }
+    var ang=A0+(A1-A0)*Math.min(val/max,1);
+    var g=el("g",{},s);
+    el("path",{d:"M100 100 L96 100 L100 36 L104 100Z",fill:"#9a2f12",transform:"rotate("+ang+" 100 100)"},g);
+    el("circle",{cx:100,cy:100,r:9,fill:"url(#bz)",stroke:"#2a1b10","stroke-width":1.5},s);
+    var t=el("text",{x:100,y:140,"text-anchor":"middle","font-family":"Rye, Georgia, serif","font-size":22,fill:"#2a1b10"},s);t.textContent=s.dataset.num;
+    var u=el("text",{x:100,y:158,"text-anchor":"middle","font-family":"Special Elite, monospace","font-size":11,fill:"#5a3a1c","letter-spacing":1.5},s);u.textContent=s.dataset.unit.toUpperCase();
+  });
+})();
+</script>
+
+</html>
