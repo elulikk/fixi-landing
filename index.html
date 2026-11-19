@@ -6,7 +6,7 @@
 <meta name="description" content="Fixi: contá qué se rompió y los técnicos de tu zona te ofertan precio, plazo y reputación.">
 <title>Fixi</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<script>try{document.documentElement.dataset.skin=localStorage.getItem("fixi-skin")||"steampunk"}catch(e){document.documentElement.dataset.skin="steampunk"}</script>
+<script>try{document.documentElement.dataset.skin=localStorage.getItem("fixi-skin-v2")||"azul"}catch(e){document.documentElement.dataset.skin="azul"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rye&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;600&family=Audiowide&family=Archivo+Black&family=Archivo:wght@400;500;700&family=VT323&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -457,8 +457,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 
 <div class="skins" role="radiogroup" aria-label="Estilo de la página">
   <span class="lab">Estilo</span>
-  <button type="button" role="radio" data-skin="steampunk" aria-checked="false"><i style="background:linear-gradient(135deg,#f1d27f,#6e4a17)"></i>Steampunk</button>
   <button type="button" role="radio" data-skin="azul" aria-checked="false"><i style="background:linear-gradient(135deg,#2446ff 50%,#c9f23d 50%)"></i>Azul</button>
+  <button type="button" role="radio" data-skin="steampunk" aria-checked="false"><i style="background:linear-gradient(135deg,#f1d27f,#6e4a17)"></i>Steampunk</button>
   <button type="button" role="radio" data-skin="synth" aria-checked="false"><i style="background:linear-gradient(135deg,#31e7ff,#ff3ea5)"></i>Synthwave</button>
   <button type="button" role="radio" data-skin="bauhaus" aria-checked="false"><i style="background:conic-gradient(#e1301e 0 33%,#f5c400 0 66%,#1f4fbf 0)"></i>Bauhaus</button>
   <button type="button" role="radio" data-skin="terminal" aria-checked="false"><i style="background:#39ff6a;box-shadow:0 0 8px #39ff6a"></i>Terminal</button>
@@ -470,10 +470,10 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
   function apply(s){
     root.dataset.skin=s;
     btns.forEach(function(b){b.setAttribute("aria-checked",b.dataset.skin===s?"true":"false")});
-    try{localStorage.setItem("fixi-skin",s)}catch(e){}
+    try{localStorage.setItem("fixi-skin-v2",s)}catch(e){}
   }
   btns.forEach(function(b){b.addEventListener("click",function(){apply(b.dataset.skin)})});
-  apply(root.dataset.skin||"steampunk");
+  apply(root.dataset.skin||"azul");
 
   var NS="http://www.w3.org/2000/svg";
   function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
